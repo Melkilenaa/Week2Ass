@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Management Dashboard</title>
+<style>
+  body {
+    font-family:Georgia, 'Times New Roman', Times, serif ;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    width: 100%;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px hsl(0, 0, 0, 0.1);
+  }
+  .container h1 {
+    text-align: center;
+  }
+  .project-form {
+    margin-bottom: 20px;
+    display:flex;
+  }
+  .project-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  .project-item {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+  }
+  .delete-btn {
+    background-color: #ff6347;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .view {
+    width: 800px;
+    display: flex;
+    justify-content: space-between;
+    
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Project Management Dashboard</h1>
+  
+  <form class="project-form" id="project-form">
+    <label for="project-name">Project Name:</label>
+    <input type="text" id="project-name" required>
+    <br>
+    <label for="project-desc">Project Description:</label>
+    <textarea id="project-desc" rows="4"></textarea>
+    <br>
+    <label for="project-deadline">Deadline:</label>
+    <input type="date" id="project-deadline" required>
+    <br>
+    <button type="submit">Create Project</button>
+  </form>
+
+  <h2>Projects:</h2>
+  <ul class="project-list" id="project-list"></ul>
+  <div class="view">
+  <p>View all projects</p>
+  <p>View one project</p>
+</div>
+</div>
+
+<script>
+  const projectForm = document.getElementById('project-form');
+  const projectNameInput = document.getElementById('project-name');
+  const projectDescInput = document.getElementById('project-desc');
+  const projectDeadlineInput = document.getElementById('project-deadline');
+  const projectList = document.getElementById('project-list');
+
+  projectForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const projectName = projectNameInput.value;
+    const projectDesc = projectDescInput.value;
+    const projectDeadline = projectDeadlineInput.value;
+
+    if (projectName.trim() === '' || projectDeadline.trim() === '') {
+      alert('Please enter both project name and deadline');
+      return;
+    }
+
+    const projectItem = document.createElement('li');
+    projectItem.classList.add('project-item');
+    projectItem.innerHTML = `
+      <strong>${projectName}</strong> - ${projectDeadline}
+      <button class="delete-btn">Delete</button>
+    `;
+
+    projectList.appendChild(projectItem);
+
+    projectNameInput.value = '';
+    projectDescInput.value = '';
+    projectDeadlineInput.value = '';
+
+    projectItem.querySelector('.delete-btn').addEventListener('click', () => {
+      projectItem.remove();
+    });
+  });
+</script>
+
+</body>
+</html>
