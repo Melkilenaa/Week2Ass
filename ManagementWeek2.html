@@ -25,9 +25,13 @@
     margin-bottom: 20px;
     display:flex;
   }
+  .project-form button{
+    margin-left: 30px;
+  }
   .project-list {
     list-style-type: none;
     padding: 0;
+    width: 800px;
   }
   .project-item {
     padding: 10px;
@@ -111,7 +115,15 @@
 
     projectItem.querySelector('.delete-btn').addEventListener('click', () => {
       projectItem.remove();
+
+      const viewButton = document.createElement('button');
+    viewButton.textContent = 'View';
+    viewButton.onclick = () => viewProject(project.id);
+
     });
+ 
+
+    
   });
 </script>
 
